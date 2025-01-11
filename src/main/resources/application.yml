@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: spring-ai-functionCall
+  ai:
+    openai:
+      api-key: ${OPEN_AI_KEY}
+      chat:
+        options:
+          model: gpt-4
+
+weather:
+  api:
+    key: ${WEATHER_API}
+    url: http://weatherapi.com/v1
