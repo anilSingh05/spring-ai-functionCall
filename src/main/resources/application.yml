@@ -11,4 +11,4 @@ spring:
 weather:
   api:
     key: ${WEATHER_API}
-    url: http://weatherapi.com/v1
+    url: http://api.weatherapi.com/v1/current.json?key={key}&q={q}

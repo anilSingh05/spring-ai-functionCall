@@ -2,7 +2,7 @@ package com.example.springai.spring_ai_functionCall;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
 
 import java.util.function.Function;
@@ -19,14 +19,18 @@ public class WeatherService implements Function<WeatherService.Request, WeatherS
 
     public WeatherService(WeatherConfigProperties weatherConfigProperties) {
         this.weatherConfigProperties = weatherConfigProperties;
-        this.restClient = RestClient.create(weatherConfigProperties.apiUrl());
+        this.restClient = RestClient.create(weatherConfigProperties.url());
     }
 
     @Override
     public Response apply(Request request) {
         log.info("Weather Request: {}", request);
-        Response  response = restClient.get()
-                .uri("/current.json?key={key}&q={q}",weatherConfigProperties.apiKey(),request.city)
+        String uri = weatherConfigProperties.url();
+        log.info("Weather URI - {}", uri);
+        Response  response = restClient
+                .get()
+                .uri(uri,weatherConfigProperties.key(),request.city)
+                .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(Response.class);
         log.info("Weather API Response: {}", response);
