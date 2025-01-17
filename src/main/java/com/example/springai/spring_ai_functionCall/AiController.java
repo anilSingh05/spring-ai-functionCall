@@ -20,7 +20,9 @@ public class AiController {
     private final ChatClient chatClient;
 
     public AiController(ChatClient.Builder chatClient) {
-        this.chatClient = chatClient.build();
+        this.chatClient = chatClient
+                .defaultSystem("You're a helpful AI assistant answering questions about Cities around the world")
+                .build();
     }
 
     @GetMapping("/citiesByFunctionCall")
